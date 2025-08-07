@@ -1,6 +1,12 @@
 import { motion } from "framer-motion";
 
 export default function SkillCard({ skill }) {
+  if (!skill || typeof skill !== 'object') {
+    return null; // Or return a fallback UI
+  }
+
+  const { icon, name, level, color } = skill;
+
   return (
     <motion.div
       className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg"
@@ -16,18 +22,18 @@ export default function SkillCard({ skill }) {
         whileHover={{ rotate: 360 }}
         transition={{ duration: 0.8, type: "spring" }}
       >
-        {skill.icon}
+        {icon}
       </motion.div>
-      <h3 className="text-xl font-semibold mt-4 mb-2">{skill.name}</h3>
+      <h3 className="text-xl font-semibold mt-4 mb-2">{name}</h3>
       <div className="w-full bg-gray-700 rounded-full h-2.5">
         <motion.div
-          className={`h-full rounded-full bg-gradient-to-r ${skill.color}`}
+          className={`h-full rounded-full bg-gradient-to-r ${color}`}
           initial={{ width: 0 }}
-          whileInView={{ width: skill.level }}
+          whileInView={{ width: level }}
           transition={{ duration: 1, delay: 0.2 }}
         />
       </div>
-      <p className="mt-2 text-yellow-400">{skill.level}</p>
+      <p className="mt-2 text-yellow-400">{level}</p>
     </motion.div>
   );
 }
