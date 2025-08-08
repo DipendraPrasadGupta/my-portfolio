@@ -262,7 +262,7 @@ export default function Hero() {
           </motion.a>
 
           <motion.a
-            href="DIPENDRA_PRASAD_GUPTA_RESUME_2_.pdf"
+            href="DIPENDRA_PRASAD_GUPTA_RESUME.pdf"
             download
             className="group relative inline-flex items-center justify-center px-10 py-4 font-bold text-white border-2 border-yellow-400/50 rounded-full hover:border-yellow-400 shadow-lg hover:shadow-yellow-400/20 overflow-hidden transition-all"
             whileHover={{ scale: 1.05 }}
