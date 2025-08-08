@@ -9,6 +9,7 @@ import Achievements from "./components/Achievements";
 import Testimonials from "./components/Testimonials";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import Services from "./components/Services";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
         <section id="hero"><Hero /></section>
         <section id="about"><About /></section>
         <section id="skills"><Skills /></section>
+        <section id="services"><Services /></section>
         <section id="projects"><Projects /></section>
         <section id="experience"><Experience /></section>
         <section id="achievements"><Achievements /></section>
