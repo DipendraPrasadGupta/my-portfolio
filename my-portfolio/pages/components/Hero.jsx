@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ChatBubbleOvalLeftEllipsisIcon,
   PhoneIcon,
   WrenchScrewdriverIcon,
   SparklesIcon,
@@ -9,13 +8,40 @@ import {
   XMarkIcon,
   ArrowDownTrayIcon,
 } from "@heroicons/react/24/outline";
+import { FaWhatsapp } from "react-icons/fa";
 
 const buttons = [
-  { id: "contact", icon: <PhoneIcon className="w-5 h-5" /> },
-  { id: "whatsapp",   icon: <ChatBubbleOvalLeftEllipsisIcon className="w-5 h-5" /> },
-  { id: "services",   icon: <WrenchScrewdriverIcon className="w-5 h-5" /> },
-  { id: "skills",   icon: <SparklesIcon className="w-5 h-5" /> },
-  { id: "projects",   icon: <FolderOpenIcon className="w-5 h-5" /> },
+  { 
+    id: "contact", 
+    icon: <PhoneIcon className="w-5 h-5" />,
+    href: "#contact",
+    label: "Contact"
+  },
+  { 
+    id: "whatsapp",   
+    icon: <FaWhatsapp className="w-5 h-5" />,
+    href: "https://wa.me/+9779807544395",
+    label: "WhatsApp",
+    external: true
+  },
+  { 
+    id: "services",   
+    icon: <WrenchScrewdriverIcon className="w-5 h-5" />,
+    href: "#services",
+    label: "Services"
+  },
+  { 
+    id: "skills",   
+    icon: <SparklesIcon className="w-5 h-5" />,
+    href: "#skills",
+    label: "Skills"
+  },
+  { 
+    id: "projects",   
+    icon: <FolderOpenIcon className="w-5 h-5" />,
+    href: "#projects",
+    label: "Projects"
+  },
 ];
 
 const modalVariants = {
@@ -27,25 +53,42 @@ const modalVariants = {
 export default function Hero() {
   const [activeModal, setActiveModal] = useState(null);
 
+  const handleCloseModal = () => {
+    setActiveModal(null);
+  };
+
   const renderModalContent = (id) => {
-    switch (id) {
-      case "contact":
-        return <div>Contact Form</div>;
-      case "whatsapp":
-        return (
-          <div>
-            <a href="https://wa.me/919999999999" target="_blank">Chat on WhatsApp</a>
+    if (id === "services") {
+      return (
+        <div className="grid gap-4">
+          <div className="p-4 bg-gradient-to-r from-yellow-400/10 to-orange-500/10 rounded-lg">
+            <h4 className="font-bold text-lg mb-2 text-yellow-400">Web Development</h4>
+            <p className="text-gray-300">Full-stack development with MERN & Next.js</p>
           </div>
-        );
-      case "services":
-        return <div>Web Development, UI/UX Design, Deployment</div>;
-      case "skills":
-        return <div>React, Next.js, Node.js, MongoDB, Tailwind CSS</div>;
-      case "projects":
-        return <div>Project 1, Project 2, Project 3...</div>;
-      default:
-        return null;
+          <div className="p-4 bg-gradient-to-r from-yellow-400/10 to-orange-500/10 rounded-lg">
+            <h4 className="font-bold text-lg mb-2 text-yellow-400">Android Development</h4>
+            <p className="text-gray-300">Cross-platform mobile apps with React Native</p>
+          </div>
+          <div className="p-4 bg-gradient-to-r from-yellow-400/10 to-orange-500/10 rounded-lg">
+            <h4 className="font-bold text-lg mb-2 text-yellow-400">AI/ML & IoT</h4>
+            <p className="text-gray-300">Smart solutions and intelligent systems</p>
+          </div>
+          <motion.button
+            onClick={() => {
+              setActiveModal(null);
+              const element = document.querySelector("#services");
+              element?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-bold py-2 px-4 rounded-lg mt-4 hover:opacity-90 transition-opacity"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            View All Services
+          </motion.button>
+        </div>
+      );
     }
+    return null;
   };
 
   const slideVariants = {
@@ -61,18 +104,42 @@ export default function Hero() {
       transition={{ duration: 1 }}
     >
       {/* Floating Action Buttons */}
-      <div className="fixed top-1/3 right-4  z-50 space-y-4">
+      <div className="fixed top-1/3 right-4 z-50 space-y-4">
         {buttons.map((btn) => (
-          <motion.button
+          <motion.a
             key={btn.id}
-            onClick={() => setActiveModal(btn.id)}
-            className="bg-yellow-400 hover:bg-orange-500 text-black px-4 py-3 rounded-s-full shadow-xl flex items-center gap-2 transition-transform hover:scale-105"
-            whileHover={{ scale: 1.1 }}
+            href={btn.href}
+            target={btn.external ? "_blank" : "_self"}
+            rel={btn.external ? "noopener noreferrer" : ""}
+            className={`bg-yellow-400 text-black p-3 rounded-s-full shadow-xl flex items-center justify-center w-[48px] cursor-pointer hover:shadow-yellow-400/50 transition-all duration-300 ${
+              btn.id === 'whatsapp' ? 'hover:bg-[#25D366]' : 'hover:bg-orange-500'
+            }`}
+            whileHover={{ 
+              x: -5,
+              scale: 1.1,
+            }}
             whileTap={{ scale: 0.95 }}
+            initial={{ x: 100 }}
+            animate={{ x: 0 }}
+            transition={{
+              type: "spring",
+              stiffness: 300,
+              damping: 20
+            }}
+            onClick={(e) => {
+              e.preventDefault();
+              if (btn.id === "services") {
+                setActiveModal("services");
+              } else if (btn.external) {
+                window.open(btn.href, "_blank");
+              } else {
+                const element = document.querySelector(btn.href);
+                element?.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
           >
             {btn.icon}
-            <span className="hidden md:inline font-semibold">{btn.label}</span>
-          </motion.button>
+          </motion.a>
         ))}
       </div>
 
@@ -86,14 +153,16 @@ export default function Hero() {
             exit="exit"
             variants={modalVariants}
           >
-            <motion.div className="bg-white rounded-2xl shadow-2xl p-8 w-[90%] max-w-md relative">
+            <motion.div className="bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl p-8 w-[90%] max-w-md relative border border-yellow-400/20">
               <button
-                onClick={() => setActiveModal(null)}
-                className="absolute top-4 right-4 text-gray-600 hover:text-black"
+                onClick={handleCloseModal}
+                className="absolute top-4 right-4 text-gray-400 hover:text-yellow-400 transition-colors"
               >
                 <XMarkIcon className="w-6 h-6" />
               </button>
-              <h3 className="text-xl font-bold mb-4 capitalize">{activeModal}</h3>
+              <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent capitalize">
+                My Services
+              </h3>
               {renderModalContent(activeModal)}
             </motion.div>
           </motion.div>
