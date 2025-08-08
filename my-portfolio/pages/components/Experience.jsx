@@ -6,6 +6,7 @@ const experiences = [
     company: "Zoiverse Technologies Pvt. Ltd.",
     period: "May 2024 – Aug 2024",
     details: "Worked on dynamic and responsive web applications, handling both frontend and backend using MERN stack.",
+    
   },
   {
     role: "Freelance Web Developer",

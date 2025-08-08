@@ -1,4 +1,4 @@
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar.jsx";
 import AnimatedBackground from "./components/AnimatedBackground";
 import Hero from "./components/Hero";
 import About from "./components/About";

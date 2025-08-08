@@ -55,6 +55,7 @@ export default function Navbar() {
     { name: "Home", to: "hero" },
     { name: "About", to: "about" },
     { name: "Skills", to: "skills" },
+    { name: "Services", to: "services" },
     { name: "Projects", to: "projects" },
     { name: "Experience", to: "experience" },
     { name: "Achievements", to: "achievements" },
@@ -69,7 +70,7 @@ export default function Navbar() {
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4">
+      <div className="max-w-8xl mx-auto px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4">
         <div className="flex justify-between items-center border-b border-yellow-400/20 pb-2 sm:pb-3 md:pb-4">
           {/* Left - Logo */}
           <motion.div
